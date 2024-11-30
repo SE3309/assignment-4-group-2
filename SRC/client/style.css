@@ -1,0 +1,121 @@
+/* General Styles */
+body {
+    /* Set a clean and modern font with a light background */
+    font-family: Arial, sans-serif;
+    background: #f0f8ff; /* Light blue background */
+    margin: 0;
+    color: #333; /* Dark gray text for readability */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the page takes up the full height of the viewport */
+    padding: 0;
+    overflow-x: hidden; /* Disable horizontal scrolling */
+}
+
+header.navbar {
+    /* Navigation bar styling */
+    background: #0078d7; /* Blue background */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Add spacing inside the navbar */
+    display: flex;
+    justify-content: space-between; /* Space out the content */
+    align-items: center; /* Vertically center the items */
+}
+
+header h1 {
+    /* Styling for the main title in the header */
+    margin: 0; /* Remove default margins */
+}
+
+header nav button {
+    /* Styling for navigation buttons */
+    background: white;
+    color: black; /* Black text for visibility */
+    border: none;
+    padding: 10px 15px; /* Add spacing inside the button */
+    margin: 0 5px; /* Add horizontal spacing between buttons */
+    border-radius: 5px; /* Rounded corners for modern look */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+header nav button:hover {
+    /* Button hover effect */
+    background: #e6f2ff; /* Light blue hover color */
+}
+
+main {
+    /* Main content area */
+    flex: 1; /* Expand to fill available vertical space */
+    padding: 20px; /* Add padding around the content */
+}
+
+section {
+    /* Styling for sections inside the main content */
+    margin-bottom: 20px; /* Add spacing between sections */
+}
+
+.hidden {
+    /* Utility class to hide elements */
+    display: none;
+}
+
+.form input {
+    /* Styling for input fields in forms */
+    display: block; /* Make inputs take up the full width */
+    margin: 5px 0; /* Add spacing around inputs */
+    padding: 8px; /* Add padding inside the inputs */
+    width: 100%; /* Stretch inputs to fill the container */
+    max-width: 400px; /* Limit the maximum width */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 4px; /* Slightly rounded corners */
+}
+
+button {
+    /* General button styling */
+    padding: 10px 20px; /* Add padding inside the button */
+    background: #0078d7; /* Blue background */
+    color: white; /* White text for contrast */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 10px; /* Add spacing above the button */
+}
+
+button:hover {
+    /* Button hover effect */
+    background: #005fa3; /* Darker blue hover color */
+}
+
+.message {
+    /* Styling for feedback messages */
+    margin-top: 15px; /* Add spacing above messages */
+    padding: 10px; /* Add padding inside the message box */
+    border-radius: 5px; /* Rounded corners */
+    white-space: pre-wrap; /* Preserve newlines and spaces */
+}
+
+.message.error {
+    /* Error message styling */
+    background: #ffdddd; /* Light red background */
+    color: #900; /* Dark red text */
+}
+
+.message.success {
+    /* Success message styling */
+    background: #ddffdd; /* Light green background */
+    color: #090; /* Dark green text */
+}
+
+/* Footer Styles */
+footer {
+    /* Styling for the footer at the bottom of the page */
+    text-align: center; /* Center the text */
+    padding: 20px; /* Add padding inside the footer */
+    background: #333; /* Dark gray background */
+    color: white; /* White text for contrast */
+    width: 100%; /* Ensure the footer spans the full width */
+    position: relative; /* Relative positioning to avoid overlapping */
+    bottom: 0; /* Position at the bottom */
+    margin-top: auto; /* Push footer to the bottom if content is short */
+    box-sizing: border-box; /* Include padding in total width */
+}

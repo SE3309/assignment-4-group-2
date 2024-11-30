@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <h1>Weather App</h1>
+    <nav>
+      <!-- Navigation buttons for different sections -->
+      <button onclick="showSection('userManagement')">User Management</button>
+      <button onclick="showSection('savedSearches')">Saved Searches</button>
+      <button onclick="showSection('locations')">Locations</button>
+      <button onclick="showSection('forecast')">Forecast</button>
+      <button onclick="showSection('weatherData')">Weather Data</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- User Management Section -->
+    <section id="userManagement" class="hidden">
+      <h2>User Management</h2>
+      <div>
+        <h3>Create User</h3>
+        <!-- Form for creating a user -->
+        <div class="form">
+          <input type="email" id="createUserEmail" placeholder="Email">
+          <input type="text" id="createUsername" placeholder="Username">
+          <input type="password" id="createPassword" placeholder="Password">
+          <input type="text" id="createLocation" placeholder="Default Location">
+          <input type="text" id="createNotifications" placeholder="Notifications (yes/no)">
+          <button onclick="createUser()">Create User</button>
+        </div>
+      </div>
+      <div>
+        <h3>Delete User</h3>
+        <!-- Form for deleting a user -->
+        <div class="form">
+          <input type="email" id="deleteUserEmail" placeholder="Email">
+          <button onclick="deleteUser()">Delete User</button>
+        </div>
+      </div>
+      <div id="userMessage" class="message"></div>
+    </section>
+
+    <!-- Saved Searches Section -->
+    <section id="savedSearches" class="hidden">
+      <h2>Saved Searches</h2>
+      <div>
+        <h3>Get Saved Searches</h3>
+        <!-- Form for retrieving saved searches -->
+        <div class="form">
+          <input type="email" id="getSearchEmail" placeholder="Email">
+          <button onclick="getSavedSearches()">Get Saved Searches</button>
+        </div>
+      </div>
+      <div>
+        <h3>Update Saved Searches</h3>
+        <!-- Form for updating saved searches -->
+        <div class="form">
+          <input type="email" id="updateSearchEmail" placeholder="Email">
+          <input type="text" id="updateSearch" placeholder="New Search">
+          <button onclick="updateSavedSearches()">Update Saved Searches</button>
+        </div>
+      </div>
+      <div id="searchMessage" class="message"></div>
+    </section>
+
+    <!-- Locations Section -->
+    <section id="locations" class="hidden">
+      <h2>Locations</h2>
+      <div>
+        <h3>Get Locations</h3>
+        <!-- Form for retrieving user locations -->
+        <div class="form">
+          <input type="email" id="getLocationEmail" placeholder="Email">
+          <button onclick="getLocations()">Get Locations</button>
+        </div>
+      </div>
+      <div>
+        <h3>Save Location</h3>
+        <!-- Form for saving a new location -->
+        <div class="form">
+          <input type="email" id="saveLocationEmail" placeholder="Email">
+          <input type="text" id="saveLocation" placeholder="New Location">
+          <button onclick="saveLocation()">Save Location</button>
+        </div>
+      </div>
+      <div id="locationMessage" class="message"></div>
+    </section>
+
+    <!-- Forecast Section -->
+    <section id="forecast" class="hidden">
+      <h2>Forecast</h2>
+      <div>
+        <h3>Search Forecast</h3>
+        <!-- Form for searching forecasts -->
+        <div class="form">
+          <input type="text" id="searchForecastLocation" placeholder="Location">
+          <button onclick="searchForecast()">Search Forecast</button>
+        </div>
+      </div>
+      <div>
+        <h3>Delete Forecast</h3>
+        <!-- Form for deleting forecasts -->
+        <div class="form">
+          <input type="text" id="deleteForecastLocation" placeholder="Location">
+          <button onclick="deleteForecast()">Delete Forecast</button>
+        </div>
+      </div>
+      <div>
+        <h3>Add Forecast</h3>
+        <!-- Form for adding forecasts -->
+        <div class="form">
+          <input type="text" id="addForecastLocation" placeholder="Location">
+          <button onclick="addForecast()">Add Forecast</button>
+        </div>
+      </div>
+      <div id="forecastMessage" class="message"></div>
+    </section>
+
+    <!-- Weather Data Section -->
+    <section id="weatherData" class="hidden">
+      <h2>Weather Data</h2>
+      <div>
+        <h3>Add Weather Data</h3>
+        <!-- Form for adding weather data -->
+        <div class="form">
+          <input type="text" id="dataLocation" placeholder="Location">
+          <input type="text" id="dataDateTime" placeholder="Date & Time">
+          <input type="text" id="dataTemperature" placeholder="Temperature">
+          <input type="text" id="dataHumidity" placeholder="Humidity">
+          <input type="text" id="dataWindSpeed" placeholder="Wind Speed">
+          <input type="text" id="dataPrecipitation" placeholder="Precipitation">
+          <input type="text" id="dataPollen" placeholder="Pollen">
+          <button onclick="addWeatherData()">Add Weather Data</button>
+        </div>
+      </div>
+      <div id="weatherMessage" class="message"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Weather App. All Rights Reserved.</p>
+  </footer>
+
+  <script src="client.js"></script>
+</body>
+</html>
