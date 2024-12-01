@@ -172,6 +172,123 @@ router.put('/addweatherdata', (req, res) => {
   });
 });
 
+// Retrieve predicted temperature and humidity from forecast for users located in a specified city
+router.get('/predictedTempHumidity', (req, res) => {
+  const location = req.query.location;
+
+  const sql = `
+    SELECT F.predictedTemp, F.predictedHumidity
+    FROM Forecast F, UserProfile U
+    WHERE F.email = U.email AND U.location = ?`;
+
+  con.query(sql, [location], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+})
+
+// Find usernames of users associated with forecasts predicting precipitation greater or less than a value
+router.get('/usernamesByPrecipitation', (req, res) => {
+  const precipitationValue = req.query.value;
+  const comparator = req.query.comparator; // Accept '>' or '<'
+
+  const sql = `
+    SELECT username
+    FROM UserProfile
+    WHERE email IN (
+      SELECT email
+      FROM Forecast
+      WHERE predictedPrecipitation ${comparator} ?
+    )`;
+
+  con.query(sql, [precipitationValue], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+// Retrieve names of forecast models with an accuracy greater than or equal to a value
+router.get('/modelsByAccuracy', (req, res) => {
+  const accuracy = req.query.accuracy;
+
+  const sql = `
+    SELECT modelName
+    FROM ForecastModel FM
+    WHERE EXISTS (
+      SELECT 1
+      FROM Forecast F
+      WHERE F.modelType = FM.modelName AND FM.accuracy >= ?
+    )`;
+
+  con.query(sql, [accuracy], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+// Caluculate the average predicted temperature for a given location
+router.get('/averageTempByLocation', (req, res) => {
+  const sql = `
+    SELECT location, AVG(predictedTemp) AS avgTemp
+    FROM Forecast
+    GROUP BY location`;
+
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+// Retrieve temperature and humidity for observation points with the latitude and longitude
+router.get('/weatherDataByLatLong', (req, res) => {
+  const latMin = req.query.latMin;
+  const latMax = req.query.latMax;
+  const longMin = req.query.longMin;
+  const longMax = req.query.longMax;
+
+  const sql = `
+    SELECT O.locationName, W.temperature, W.humidity
+    FROM ObservationPoint O, WeatherData W
+    WHERE O.locationName = W.location
+      AND O.latitude BETWEEN ? AND ?
+      AND O.longitude BETWEEN ? AND ?`;
+
+  con.query(sql, [latMin, latMax, longMin, longMax], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+// Identify the top 5 users with the highest number of associated forecasts
+router.get('/topUsersByForecasts', (req, res) => {
+  const sql = `
+    SELECT U.username, COUNT(F.email) AS forecastCount
+    FROM UserProfile U, Forecast F
+    WHERE U.email = F.email
+    GROUP BY U.username
+    ORDER BY forecastCount DESC
+    LIMIT 5`;
+
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+// Count observation points for each location type
+router.get('/observationPointsByType', (req, res) => {
+  const sql = `
+    SELECT locationType, COUNT(*) AS observationCount
+    FROM ObservationPoint
+    GROUP BY locationType
+    HAVING locationType IN ('Urban', 'Suburban', 'Rural')`;
+
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 // Apply the router
 app.use('/api/database', router);
 
