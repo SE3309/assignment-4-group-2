@@ -313,3 +313,125 @@ function addWeatherData() {
     })
     .catch(err => displayMessage('weatherMessage', err.message, true));
 }
+
+
+// Retrieve predicted temperature and humidity
+function getPredictedTempHumidity() {
+  const location = document.getElementById('tempHumidityLocation').value;
+
+  if (!isNotEmpty(location)) {
+    displayMessage('tempHumidityMessage', 'Location cannot be empty.', true);
+    return;
+  }
+
+  fetch(`${apiBase}/predictedTempHumidity?location=${location}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.length > 0) {
+        const details = data.map(item => `Temperature: ${item.predictedTemp}°C, Humidity: ${item.predictedHumidity}%`).join('\n');
+        displayMessage('tempHumidityMessage', details);
+      } else {
+        displayMessage('tempHumidityMessage', 'No data found for the specified location.', true);
+      }
+    })
+    .catch(err => displayMessage('tempHumidityMessage', err.message, true));
+}
+
+// Retrieve usernames by precipitation
+function getUsernamesByPrecipitation() {
+  const value = document.getElementById('precipitationValue').value;
+  const comparator = document.getElementById('precipitationComparator').value;
+
+  if (!isNotEmpty(value)) {
+    displayMessage('precipitationMessage', 'Value cannot be empty.', true);
+    return;
+  }
+
+  fetch(`${apiBase}/usernamesByPrecipitation?value=${value}&comparator=${comparator}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.length > 0) {
+        const usernames = data.map(item => item.username).join(', ');
+        displayMessage('precipitationMessage', `Usernames: ${usernames}`);
+      } else {
+        displayMessage('precipitationMessage', 'No users found.', true);
+      }
+    })
+    .catch(err => displayMessage('precipitationMessage', err.message, true));
+}
+
+// Retrieve models by accuracy
+function getModelsByAccuracy() {
+  const accuracy = document.getElementById('modelAccuracy').value;
+
+  if (!isNotEmpty(accuracy)) {
+    displayMessage('accuracyMessage', 'Accuracy cannot be empty.', true);
+    return;
+  }
+
+  fetch(`${apiBase}/modelsByAccuracy?accuracy=${accuracy}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.length > 0) {
+        const models = data.map(item => item.modelName).join(', ');
+        displayMessage('accuracyMessage', `Models: ${models}`);
+      } else {
+        displayMessage('accuracyMessage', 'No models found.', true);
+      }
+    })
+    .catch(err => displayMessage('accuracyMessage', err.message, true));
+}
+
+// Retrieve average temperature by location
+function getAverageTempByLocation() {
+  fetch(`${apiBase}/averageTempByLocation`)
+    .then(res => res.json())
+    .then(data => {
+      const averages = data.map(item => `${item.location}: ${item.avgTemp.toFixed(2)}°C`).join('\n');
+      displayMessage('averageTempMessage', averages);
+    })
+    .catch(err => displayMessage('averageTempMessage', err.message, true));
+}
+
+// Retrieve weather data by latitude and longitude
+function getWeatherDataByLatLong() {
+  const latMin = document.getElementById('latMin').value;
+  const latMax = document.getElementById('latMax').value;
+  const longMin = document.getElementById('longMin').value;
+  const longMax = document.getElementById('longMax').value;
+
+  if (!isNotEmpty(latMin) || !isNotEmpty(latMax) || !isNotEmpty(longMin) || !isNotEmpty(longMax)) {
+    displayMessage('latLongMessage', 'All fields are required.', true);
+    return;
+  }
+
+  fetch(`${apiBase}/weatherDataByLatLong?latMin=${latMin}&latMax=${latMax}&longMin=${longMin}&longMax=${longMax}`)
+    .then(res => res.json())
+    .then(data => {
+      const weatherData = data.map(item => `Location: ${item.locationName}, Temperature: ${item.temperature}°C, Humidity: ${item.humidity}%`).join('\n');
+      displayMessage('latLongMessage', weatherData);
+    })
+    .catch(err => displayMessage('latLongMessage', err.message, true));
+}
+
+// Retrieve top users by forecasts
+function getTopUsersByForecasts() {
+  fetch(`${apiBase}/topUsersByForecasts`)
+    .then(res => res.json())
+    .then(data => {
+      const topUsers = data.map(user => `${user.username} (${user.forecastCount} forecasts)`).join('\n');
+      displayMessage('topUsersMessage', topUsers);
+    })
+    .catch(err => displayMessage('topUsersMessage', err.message, true));
+}
+
+// Retrieve observation points by type
+function getObservationPointsByType() {
+  fetch(`${apiBase}/observationPointsByType`)
+    .then(res => res.json())
+    .then(data => {
+      const points = data.map(item => `${item.locationType}: ${item.observationCount} points`).join('\n');
+      displayMessage('observationPointsMessage', points);
+    })
+    .catch(err => displayMessage('observationPointsMessage', err.message, true));
+}

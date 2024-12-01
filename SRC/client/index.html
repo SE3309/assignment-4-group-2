@@ -16,6 +16,13 @@
       <button onclick="showSection('locations')">Locations</button>
       <button onclick="showSection('forecast')">Forecast</button>
       <button onclick="showSection('weatherData')">Weather Data</button>
+      <button onclick="showSection('predictedTempHumidity')">Predicted Temp & Humidity</button>
+      <button onclick="showSection('usernamesByPrecipitation')">Usernames by Precipitation</button>
+      <button onclick="showSection('modelsByAccuracy')">Models by Accuracy</button>
+      <button onclick="showSection('averageTempByLocation')">Average Temp by Location</button>
+      <button onclick="showSection('weatherDataByLatLong')">Weather Data by Lat/Long</button>
+      <button onclick="showSection('topUsersByForecasts')">Top Users by Forecasts</button>
+      <button onclick="showSection('observationPointsByType')">Observation Points by Type</button>
     </nav>
   </header>
 
@@ -141,6 +148,75 @@
       </div>
       <div id="weatherMessage" class="message"></div>
     </section>
+
+    <!-- Predicted Temperature and Humidity Section -->
+    <section id="predictedTempHumidity" class="hidden">
+      <h2>Predicted Temperature and Humidity</h2>
+      <div class="form">
+        <input type="text" id="tempHumidityLocation" placeholder="Location">
+        <button onclick="getPredictedTempHumidity()">Retrieve Data</button>
+      </div>
+      <div id="tempHumidityMessage" class="message"></div>
+    </section>
+
+    <!-- Usernames by Precipitation Section -->
+    <section id="usernamesByPrecipitation" class="hidden">
+      <h2>Usernames by Precipitation</h2>
+      <div class="form">
+        <input type="number" id="precipitationValue" placeholder="Precipitation Value">
+        <select id="precipitationComparator">
+          <option value=">">Greater Than</option>
+          <option value="<">Less Than</option>
+        </select>
+        <button onclick="getUsernamesByPrecipitation()">Retrieve Data</button>
+      </div>
+      <div id="precipitationMessage" class="message"></div>
+    </section>
+
+    <!-- Models by Accuracy Section -->
+    <section id="modelsByAccuracy" class="hidden">
+      <h2>Models by Accuracy</h2>
+      <div class="form">
+        <input type="number" id="modelAccuracy" placeholder="Minimum Accuracy">
+        <button onclick="getModelsByAccuracy()">Retrieve Models</button>
+      </div>
+      <div id="accuracyMessage" class="message"></div>
+    </section>
+
+    <!-- Average Temperature by Location Section -->
+    <section id="averageTempByLocation" class="hidden">
+      <h2>Average Temperature by Location</h2>
+      <button onclick="getAverageTempByLocation()">Retrieve Averages</button>
+      <div id="averageTempMessage" class="message"></div>
+    </section>
+
+    <!-- Weather Data by Latitude and Longitude Section -->
+    <section id="weatherDataByLatLong" class="hidden">
+      <h2>Weather Data by Latitude and Longitude</h2>
+      <div class="form">
+        <input type="number" id="latMin" placeholder="Latitude Min">
+        <input type="number" id="latMax" placeholder="Latitude Max">
+        <input type="number" id="longMin" placeholder="Longitude Min">
+        <input type="number" id="longMax" placeholder="Longitude Max">
+        <button onclick="getWeatherDataByLatLong()">Retrieve Data</button>
+      </div>
+      <div id="latLongMessage" class="message"></div>
+    </section>
+
+    <!-- Top Users by Forecasts Section -->
+    <section id="topUsersByForecasts" class="hidden">
+      <h2>Top Users by Forecasts</h2>
+      <button onclick="getTopUsersByForecasts()">Retrieve Top Users</button>
+      <div id="topUsersMessage" class="message"></div>
+    </section>
+
+    <!-- Observation Points by Type Section -->
+    <section id="observationPointsByType" class="hidden">
+      <h2>Observation Points by Type</h2>
+      <button onclick="getObservationPointsByType()">Retrieve Data</button>
+      <div id="observationPointsMessage" class="message"></div>
+    </section>
+
   </main>
 
   <footer>
