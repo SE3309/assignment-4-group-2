@@ -33,7 +33,7 @@ header nav button {
     color: black; /* Black text for visibility */
     border: none;
     padding: 10px 15px; /* Add spacing inside the button */
-    margin: 0 5px; /* Add horizontal spacing between buttons */
+    margin: 5px 5px; /* Add horizontal spacing between buttons */
     border-radius: 5px; /* Rounded corners for modern look */
     cursor: pointer; /* Show pointer cursor on hover */
 }
