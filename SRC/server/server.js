@@ -277,16 +277,16 @@ router.get('/topUsersByForecasts', (req, res) => {
 
 // Count observation points for each location type
 router.get('/observationPointsByType', (req, res) => {
+  const locationType = req.query.locationType;
+  
   const sql = `
-    SELECT locationType, COUNT(*) AS observationCount
-    FROM ObservationPoint
-    GROUP BY locationType
-    HAVING locationType IN ('Urban', 'Suburban', 'Rural')`;
+    SELECT * FROM ObservationPoint
+    WHERE locationType = ?`;
 
-  con.query(sql, (err, result) => {
-    if (err) throw err;
-    res.send(result);
-  });
+    con.query(sql, [locationType], (err, result) => {
+      if (err) throw err;
+      res.send(result);
+    });
 });
 
 // Apply the router
