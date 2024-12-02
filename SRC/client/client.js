@@ -427,11 +427,30 @@ function getTopUsersByForecasts() {
 
 // Retrieve observation points by type
 function getObservationPointsByType() {
-  fetch(`${apiBase}/observationPointsByType`)
-    .then(res => res.json())
-    .then(data => {
-      const points = data.map(item => `${item.locationType}: ${item.observationCount} points`).join('\n');
-      displayMessage('observationPointsMessage', points);
+  const locationType = document.getElementById('locationTypeSelect').value;
+
+  fetch(`${apiBase}/observationPointsByType?type=${locationType}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
     })
-    .catch(err => displayMessage('observationPointsMessage', err.message, true));
+    .then(data => {
+      if (data.length === 0) {
+        displayMessage('observationPointsMessage', `No locations found of type: ${locationType}`, true);
+        return;
+      }
+
+      // Format each location's data
+      const locationList = data.map(location => 
+        `${location.locationName} (${location.latitde}, ${location.altitude})`
+      ).join('\n');
+
+      displayMessage('observationPointsMessage', locationList);
+    })
+    .catch(err => {
+      console.error('Error fetching locations:', err);
+      displayMessage('observationPointsMessage', `Error: ${err.message}`, true);
+    });
 }
