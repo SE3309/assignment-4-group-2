@@ -23,6 +23,7 @@
       <button onclick="showSection('weatherDataByLatLong')">Weather Data by Lat/Long</button>
       <button onclick="showSection('topUsersByForecasts')">Top Users by Forecasts</button>
       <button onclick="showSection('observationPointsByType')">Observation Points by Type</button>
+      <button onclick="showSection('locationsByType')">Locations by Type</button>
     </nav>
   </header>
 
@@ -213,10 +214,12 @@
     <!-- Observation Points by Type Section -->
     <section id="observationPointsByType" class="hidden">
       <h2>Observation Points by Type</h2>
-      <button onclick="getObservationPointsByType()">Retrieve Data</button>
+      <div class="form">
+        <input type="text" id="locationType" placeholder="Location Type">
+        <button onclick="getObservationPointsByType()">Retrieve Data</button>
+      </div>
       <div id="observationPointsMessage" class="message"></div>
     </section>
-
   </main>
 
   <footer>
